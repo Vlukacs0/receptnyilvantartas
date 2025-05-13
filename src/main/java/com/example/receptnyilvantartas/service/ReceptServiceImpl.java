@@ -31,7 +31,7 @@ class mockReceptService implements ReceptService {
         if (recept.getId() == null) {
             recept.setId(idGenerator.incrementAndGet());
         } else {
-            deleteById(recept.getId()); // frissítés
+            deleteById(recept.getId());
         }
         receptTarolo.add(recept);
         return recept;
@@ -42,4 +42,3 @@ class mockReceptService implements ReceptService {
         receptTarolo.removeIf(r -> r.getId().equals(id));
     }
 }
-
