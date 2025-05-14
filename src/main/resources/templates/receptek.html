@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Receptek</title>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-4">
+
+<h2>Receptek</h2>
+
+<a th:href="@{/receptek/uj}" class="btn btn-primary mb-3">Új recept hozzáadása</a>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Név</th>
+        <th>Leírás</th>
+        <th>Műveletek</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recept : ${receptek}">
+        <td th:text="${recept.id}"></td>
+        <td th:text="${recept.nev}"></td>
+        <td th:text="${recept.leiras}"></td>
+        <td>
+            <a th:href="@{/receptek/szerkeszt/{id}(id=${recept.id})}" class="btn btn-warning btn-sm">Szerkesztés</a>
+            <a th:href="@{/receptek/torol/{id}(id=${recept.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Biztos, hogy törölni akarja?')">Törlés</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
