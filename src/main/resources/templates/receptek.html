@@ -27,8 +27,10 @@
         <td th:text="${recept.leiras}"></td>
         <td>
             <a th:href="@{/receptek/szerkeszt/{id}(id=${recept.id})}" class="btn btn-warning btn-sm">Szerkesztés</a>
-            <a th:href="@{/receptek/torol/{id}(id=${recept.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Biztos, hogy törölni akarja?')">Törlés</a>
-        </td>
+            <form th:action="@{/receptek/torol/{id}(id=${recept.id})}" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Biztos, hogy törölni akarja?')">Törlés</button>
+            </form>
+
     </tr>
     </tbody>
 </table>
