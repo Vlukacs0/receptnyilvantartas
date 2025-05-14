@@ -1,44 +1,38 @@
 package com.example.receptnyilvantartas.service;
 
 import com.example.receptnyilvantartas.model.Recept;
+import com.example.receptnyilvantartas.repository.ReceptRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
-class mockReceptService implements ReceptService {
+public class ReceptServiceImpl implements ReceptService {
 
-    private final List<Recept> receptTarolo = new ArrayList<>();
-    private final AtomicLong idGenerator = new AtomicLong();
+    private final ReceptRepository receptRepository;
+
+    public ReceptServiceImpl(ReceptRepository receptRepository) {
+        this.receptRepository = receptRepository;
+    }
 
     @Override
     public List<Recept> findAll() {
-        return new ArrayList<>(receptTarolo);
+        return receptRepository.findAll();
     }
 
     @Override
     public Recept findById(Long id) {
-        return receptTarolo.stream()
-                .filter(r -> r.getId().equals(id))
-                .findFirst()
+        return receptRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recept nem található"));
     }
 
     @Override
     public Recept save(Recept recept) {
-        if (recept.getId() == null) {
-            recept.setId(idGenerator.incrementAndGet());
-        } else {
-            deleteById(recept.getId());
-        }
-        receptTarolo.add(recept);
-        return recept;
+        return receptRepository.save(recept);
     }
 
     @Override
     public void deleteById(Long id) {
-        receptTarolo.removeIf(r -> r.getId().equals(id));
+        receptRepository.deleteById(id);
     }
 }

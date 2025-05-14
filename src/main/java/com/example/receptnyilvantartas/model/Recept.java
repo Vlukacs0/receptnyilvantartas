@@ -1,9 +1,16 @@
 package com.example.receptnyilvantartas.model;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Recept {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nev;
+
     private String leiras;
 
     public Recept() {
