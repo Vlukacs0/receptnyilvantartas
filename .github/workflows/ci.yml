@@ -25,25 +25,18 @@ jobs:
         run: mvn clean verify
 
       - name: Upload Jacoco coverage report as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jacoco-coverage-report
           path: target/site/jacoco/index.html
 
       - name: Publish artifact to GitHub Packages
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: recept-nyilvanto-artifact
           path: target/recept-nyilvanto-*.jar
-
       - name: Publish artifact to GitHub Packages (maven)
         run: |
-          mvn deploy:deploy-file \
-            -DgroupId=com.example \
-            -DartifactId=recept-nyilvanto \
-            -Dversion=1.0.0 \
-            -Dfile=target/recept-nyilvanto-1.0.0.jar \
-            -DrepositoryId=github-packages \
-            -Durl=https://maven.pkg.github.com/yourusername/recept-nyilvanto
+          mvn deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/yourusername/receptnyilvantartas
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
