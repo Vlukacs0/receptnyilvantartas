@@ -11,24 +11,25 @@
 		<version>3.4.5</version>
 		<relativePath/>
 	</parent>
-
 	<groupId>com.example</groupId>
 	<artifactId>receptnyilvantartas</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>receptnyilvantartas</name>
-	<description>Recept nyilvántartó rendszer Spring Boot alkalmazás</description>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>17</java.version>
 		<gpg.skip>true</gpg.skip>
 	</properties>
-
 	<distributionManagement>
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/yourusername/receptnyilvantartas</url>
+			<url>https://github.com/Vlukacs0/receptnyilvantartas</url>
 		</repository>
+		<snapshotRepository>
+			<id>github</id>
+			<url>https://github.com/Vlukacs0/receptnyilvantartas</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<dependencies>
