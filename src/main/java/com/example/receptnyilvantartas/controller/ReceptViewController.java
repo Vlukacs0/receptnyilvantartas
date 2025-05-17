@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/receptek")
 public class ReceptViewController {
-
     private final ReceptService receptService;
-
-    public ReceptViewController(ReceptService receptService) {
+    public ReceptViewController(ReceptService receptService)
+    {
         this.receptService = receptService;
     }
-
     @GetMapping
-    public String listReceptek(Model model) {
+    public String listReceptek(Model model)
+    {
         model.addAttribute("receptek", receptService.findAll());
         return "receptek";
     }
 
     @GetMapping("/uj")
-    public String ujReceptForm(Model model) {
+    public String ujReceptForm(Model model)
+    {
         model.addAttribute("recept", new Recept());
         return "uj";
     }
-
     @PostMapping
-    public String mentes(@ModelAttribute Recept recept) {
+    public String mentes(@ModelAttribute Recept recept)
+    {
         receptService.save(recept);
         return "redirect:/receptek";
     }
@@ -39,7 +39,6 @@ public class ReceptViewController {
         receptService.deleteById(id);
         return "redirect:/receptek";
     }
-
     @GetMapping("/szerkeszt/{id}")
     public String editReceptForm(@PathVariable Long id, Model model) {
         Recept recept = receptService.findById(id);
@@ -48,7 +47,8 @@ public class ReceptViewController {
     }
 
     @PostMapping("/szerkeszt/{id}")
-    public String editRecept(@PathVariable Long id, @ModelAttribute Recept recept) {
+    public String editRecept(@PathVariable Long id, @ModelAttribute Recept recept)
+    {
         recept.setId(id);
         receptService.save(recept);
         return "redirect:/receptek";

@@ -14,7 +14,6 @@ public class ReceptServiceImpl implements ReceptService {
     public ReceptServiceImpl(ReceptRepository receptRepository) {
         this.receptRepository = receptRepository;
     }
-
     @Override
     public List<Recept> findAll() {
         return receptRepository.findAll();

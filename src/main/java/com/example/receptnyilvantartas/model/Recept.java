@@ -1,6 +1,7 @@
 package com.example.receptnyilvantartas.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Recept {
@@ -12,6 +13,9 @@ public class Recept {
     private String nev;
 
     private String leiras;
+
+    @OneToMany(mappedBy = "recept", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ertekeles> ertekelesek;
 
     public Recept() {
     }
@@ -44,6 +48,14 @@ public class Recept {
 
     public void setLeiras(String leiras) {
         this.leiras = leiras;
+    }
+
+    public List<Ertekeles> getErtekelesek() {
+        return ertekelesek;
+    }
+
+    public void setErtekelesek(List<Ertekeles> ertekelesek) {
+        this.ertekelesek = ertekelesek;
     }
 
     @Override

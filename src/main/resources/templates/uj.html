@@ -8,7 +8,6 @@
 <body class="container mt-4">
 
 <h2>Új recept hozzáadása</h2>
-
 <form th:action="@{/receptek}" method="post" th:object="${recept}">
     <div class="mb-3">
         <label for="nev" class="form-label">Név</label>
@@ -21,7 +20,5 @@
     <button type="submit" class="btn btn-success">Hozzáadás</button>
     <a th:href="@{/receptek}" class="btn btn-secondary">Mégse</a>
 </form>
-
-
 </body>
 </html>
