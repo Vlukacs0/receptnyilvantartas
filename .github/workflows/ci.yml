@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +20,19 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Configure Maven settings.xml
+        run: |
+          mkdir -p ~/.m2
+          echo "<settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>\${{ github.actor }}</username>
+                <password>\${{ secrets.GITHUB_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>" > ~/.m2/settings.xml
+
       - name: Build with Maven
         run: mvn clean verify
 
@@ -30,13 +42,14 @@ jobs:
           name: jacoco-coverage-report
           path: target/site/jacoco/index.html
 
-      - name: Publish artifact to GitHub Packages
+      - name: Upload built jar as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: recept-nyilvanto-artifact
-          path: target/recept-nyilvanto-*.jar
-      - name: Publish artifact to GitHub Packages (maven)
+          name: receptnyilvantartas-artifact
+          path: target/receptnyilvantartas-*.jar
+
+      - name: Publish artifact to GitHub Packages (Maven)
         run: |
-          mvn deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/yourusername/receptnyilvantartas
+          mvn deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/Vlukacs0/receptnyilvantartas
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
