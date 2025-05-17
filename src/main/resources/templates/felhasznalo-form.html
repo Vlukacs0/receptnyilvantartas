@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Új Felhasználó</title>
+</head>
+<body>
+<h1>Új Felhasználó</h1>
+<form th:action="@{/felhasznalok}" th:object="${felhasznalo}" method="post">
+    <label>Név:</label>
+    <input type="text" th:field="*{nev}" /><br/>
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" /><br/>
+    <button type="submit">Mentés</button>
+</form>
+</body>
+</html>

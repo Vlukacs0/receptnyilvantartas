@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Értékelések</title>
+</head>
+<body>
+<h1>Értékelések</h1>
+<a th:href="@{/ertekelesek/uj}">Új értékelés hozzáadása</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Recept</th>
+        <th>Felhasználó</th>
+        <th>Pontszám</th>
+        <th>Megjegyzés</th>
+        <th>Műveletek</th>
+    </tr>
+    <tr th:each="ertekeles : ${ertekelesek}">
+        <td th:text="${ertekeles.id}"></td>
+        <td th:text="${ertekeles.recept.nev}"></td>
+        <td th:text="${ertekeles.felhasznalo.nev}"></td>
+        <td th:text="${ertekeles.pontszam}"></td>
+        <td th:text="${ertekeles.megjegyzes}"></td>
+        <td>
+            <a th:href="@{/ertekelesek/torol/{id}(id=${ertekeles.id})}">Törlés</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

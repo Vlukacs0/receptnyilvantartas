@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Felhasználók</title>
+</head>
+<body>
+<h1>Felhasználók</h1>
+<a th:href="@{/felhasznalok/uj}">Új felhasználó hozzáadása</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Név</th>
+        <th>Email</th>
+        <th>Műveletek</th>
+    </tr>
+    <tr th:each="felhasznalo : ${felhasznalok}">
+        <td th:text="${felhasznalo.id}"></td>
+        <td th:text="${felhasznalo.nev}"></td>
+        <td th:text="${felhasznalo.email}"></td>
+        <td>
+            <a th:href="@{/felhasznalok/torol/{id}(id=${felhasznalo.id})}">Törlés</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Új Értékelés</title>
+</head>
+<body>
+<h1>Új Értékelés</h1>
+<form th:action="@{/ertekelesek}" th:object="${ertekeles}" method="post">
+    <label>Recept:</label>
+    <select th:field="*{recept.id}" required>
+        <option th:each="r : ${receptek}" th:value="${r.id}" th:text="${r.nev}"></option>
+    </select><br/>
+
+    <label>Felhasználó:</label>
+    <select th:field="*{felhasznalo.id}" required>
+        <option th:each="f : ${felhasznalok}" th:value="${f.id}" th:text="${f.nev}"></option>
+    </select><br/>
+
+    <label>Pontszám (1-5):</label>
+    <input type="number" th:field="*{pontszam}" min="1" max="5" required /><br/>
+
+    <label>Megjegyzés:</label>
+    <textarea th:field="*{megjegyzes}"></textarea><br/>
+
+    <button type="submit">Mentés</button>
+</form>
+</body>
+</html>
