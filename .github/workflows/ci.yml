@@ -1,55 +1,53 @@
-name: Java CI
+name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Kód klónozása
         uses: actions/checkout@v3
 
-      - name: Set up JDK 22
+      - name: Java 17 beállítása
         uses: actions/setup-java@v3
         with:
-          java-version: '22'
           distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
 
-      - name: Configure Maven settings.xml
+      - name: Maven build és teszt
+        run: mvn clean verify
+
+      - name: Jacoco coverage riport generálása
+        run: mvn jacoco:report
+
+      - name: Jacoco HTML riport elmentése
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: target/site/jacoco
+
+      - name: Maven settings létrehozása a GitHub deploy-hoz
         run: |
           mkdir -p ~/.m2
           echo "<settings>
             <servers>
               <server>
                 <id>github</id>
-                <username>\${{ github.actor }}</username>
-                <password>\${{ secrets.GITHUB_TOKEN }}</password>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GITHUB_TOKEN }}</password>
               </server>
             </servers>
           </settings>" > ~/.m2/settings.xml
 
-      - name: Build with Maven
-        run: mvn clean verify
 
-      - name: Upload Jacoco coverage report as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-coverage-report
-          path: target/site/jacoco/index.html
-
-      - name: Upload built jar as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: receptnyilvantartas-artifact
-          path: target/receptnyilvantartas-*.jar
-
-      - name: Publish artifact to GitHub Packages (Maven)
-        run: |
-          mvn deploy -DaltDeploymentRepository=github::default::https://maven.pkg.github.com/Vlukacs0/receptnyilvantartas
+      - name: Artifact deploy GitHub Packages-re
+        run: mvn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
