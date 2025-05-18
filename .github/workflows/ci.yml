@@ -24,14 +24,12 @@ jobs:
       - name: Maven build és teszt
         run: mvn clean verify
 
-      - name: Jacoco coverage riport generálása
-        run: mvn jacoco:report
-
       - name: Jacoco HTML riport elmentése
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jacoco-report
           path: target/site/jacoco
+
 
       - name: Maven settings.xml létrehozása
         run: |
