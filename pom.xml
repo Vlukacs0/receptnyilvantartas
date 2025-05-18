@@ -24,13 +24,10 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://github.com/Vlukacs0/receptnyilvantartas</url>
+			<url>https://maven.pkg.github.com/Vlukacs0/receptnyilvantartas</url>
 		</repository>
-		<snapshotRepository>
-			<id>github</id>
-			<url>https://github.com/Vlukacs0/receptnyilvantartas</url>
-		</snapshotRepository>
 	</distributionManagement>
+
 
 	<dependencies>
 		<dependency>
@@ -98,7 +95,7 @@
 					</execution>
 					<execution>
 						<id>report</id>
-						<phase>test</phase>
+						<phase>verify</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
