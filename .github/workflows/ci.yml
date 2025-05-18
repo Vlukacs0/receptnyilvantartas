@@ -33,18 +33,21 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco
 
-      - name: Maven settings létrehozása a GitHub deploy-hoz
+      - name: Maven settings létrehozása
         run: |
           mkdir -p ~/.m2
-          echo "<settings>
+          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
             <servers>
               <server>
                 <id>github</id>
-                <username>${{ github.actor }}</username>
-                <password>${{ secrets.GITHUB_TOKEN }}</password>
+                <username>Vlukacs0</username>
+                <password>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</password>
               </server>
             </servers>
-          </settings>" > ~/.m2/settings.xml
+          </settings>' > ~/.m2/settings.xml
+
 
 
       - name: Artifact deploy GitHub Packages-re
