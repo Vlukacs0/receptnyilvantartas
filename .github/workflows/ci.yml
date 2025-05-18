@@ -33,24 +33,22 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco
 
-      - name: Maven settings létrehozása
+      - name: Maven settings.xml létrehozása
         run: |
           mkdir -p ~/.m2
-          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+          echo "<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\"
+            xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+            xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd\">
             <servers>
               <server>
                 <id>github</id>
                 <username>Vlukacs0</username>
-                <password>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</password>
+                <password>${{ secrets.MY_PAT }}</password>
               </server>
             </servers>
-          </settings>' > ~/.m2/settings.xml
-
-
+          </settings>" > ~/.m2/settings.xml
 
       - name: Artifact deploy GitHub Packages-re
         run: mvn deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MY_PAT: ${{ secrets.MY_PAT }}
