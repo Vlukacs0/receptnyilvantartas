@@ -30,7 +30,6 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco
 
-
       - name: Maven settings.xml létrehozása
         run: |
           mkdir -p ~/.m2
@@ -50,3 +49,6 @@ jobs:
         run: mvn deploy
         env:
           MY_PAT: ${{ secrets.MY_PAT }}
+
+      - name: Checkstyle futtatása
+        run: mvn checkstyle:check
